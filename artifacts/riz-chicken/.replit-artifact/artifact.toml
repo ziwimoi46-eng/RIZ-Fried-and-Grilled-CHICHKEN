@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Riz Fried and Grilled Chicken"
+version = "1.0.0"
+id = "artifacts/riz-chicken"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23297
+
+[services.development]
+run = "pnpm --filter @workspace/riz-chicken run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/riz-chicken", "run", "build" ]
+publicDir = "artifacts/riz-chicken/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23297"
+BASE_PATH = "/"

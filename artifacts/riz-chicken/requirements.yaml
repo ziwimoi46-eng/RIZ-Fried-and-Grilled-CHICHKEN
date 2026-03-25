@@ -1,0 +1,11 @@
+packages:
+  "framer-motion": "For premium smooth entry, fade-in, and scroll animations across the site"
+  "embla-carousel-react": "For the customer reviews slider"
+  "embla-carousel-autoplay": "For auto-scrolling the customer reviews slider"
+  "react-hook-form": "For robust order form state management"
+  "@hookform/resolvers": "For Zod validation integration with react-hook-form"
+
+notes:
+  - This is a frontend-only application with no backend dependencies.
+  - Using real images provided in the public folder (no AI generation needed).
+  - All form submissions are routed directly to WhatsApp via wa.me links.
