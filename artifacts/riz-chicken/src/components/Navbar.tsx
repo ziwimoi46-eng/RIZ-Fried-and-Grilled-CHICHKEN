@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Drumstick, ShoppingBag } from "lucide-react";
+import { Menu, X, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
 
@@ -21,7 +21,6 @@ export default function Navbar() {
     { name: "About", href: "#about" },
     { name: "Menu", href: "#menu" },
     { name: "Gallery", href: "#gallery" },
-    { name: "Reviews", href: "#reviews" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -34,13 +33,10 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-2 group">
-            <div className="bg-primary text-primary-foreground p-2 rounded-xl group-hover:rotate-12 transition-transform duration-300 shadow-lg shadow-primary/30">
-              <Drumstick className="w-6 h-6" />
+          <a href="#home" className="flex items-center group">
+            <div className="bg-white rounded-xl overflow-hidden shadow-lg group-hover:shadow-primary/30 transition-shadow duration-300 h-12 w-12 flex items-center justify-center">
+              <img src={`${import.meta.env.BASE_URL}riz-logo.jpg`} alt="Riz Chicken Logo" className="h-full w-full object-contain" />
             </div>
-            <span className={`text-2xl font-display font-black tracking-tight ${isScrolled ? 'text-foreground' : 'text-white'}`}>
-              RIZ <span className="text-primary">CHICKEN</span>
-            </span>
           </a>
 
           {/* Desktop Nav */}

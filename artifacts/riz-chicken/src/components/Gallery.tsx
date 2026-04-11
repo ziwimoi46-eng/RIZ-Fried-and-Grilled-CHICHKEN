@@ -3,11 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ZoomIn } from "lucide-react";
 
 const images = [
+  "outlet-front-new.jpg",
+  "outlet-seating.jpg",
   "hero-bucket.jpg",
   "hero-wings.jpg",
   "brand-poster.jpg",
-  "restaurant-front.jpg",
-  "restaurant-interior.jpg",
   "kulcha.jpg",
   "combo-tray.jpg",
   "menu-crispy.jpg",

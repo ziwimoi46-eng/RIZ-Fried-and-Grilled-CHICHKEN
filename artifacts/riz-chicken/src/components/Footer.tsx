@@ -1,4 +1,4 @@
-import { Drumstick, Facebook, Instagram, Youtube } from "lucide-react";
+import { Facebook, Instagram, Youtube } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -8,13 +8,10 @@ export default function Footer() {
           
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
-            <a href="#home" className="flex items-center gap-2 mb-6">
-              <div className="bg-primary text-white p-2 rounded-xl">
-                <Drumstick className="w-6 h-6" />
+            <a href="#home" className="flex items-center mb-6">
+              <div className="bg-white rounded-xl overflow-hidden h-14 w-14 flex items-center justify-center">
+                <img src={`${import.meta.env.BASE_URL}riz-logo.jpg`} alt="Riz Chicken Logo" className="h-full w-full object-contain" />
               </div>
-              <span className="text-2xl font-display font-black tracking-tight text-white">
-                RIZ <span className="text-primary">CHICKEN</span>
-              </span>
             </a>
             <p className="text-gray-400 max-w-sm mb-6 leading-relaxed">
               Premium quality fried and grilled chicken in Aurangabad. Crispy on the outside, juicy on the inside, and 100% Halal certified.
@@ -39,7 +36,6 @@ export default function Footer() {
               <li><a href="#home" className="text-gray-400 hover:text-primary transition-colors">Home</a></li>
               <li><a href="#about" className="text-gray-400 hover:text-primary transition-colors">About Us</a></li>
               <li><a href="#menu" className="text-gray-400 hover:text-primary transition-colors">Menu</a></li>
-              <li><a href="#reviews" className="text-gray-400 hover:text-primary transition-colors">Customer Reviews</a></li>
             </ul>
           </div>
 
@@ -47,7 +43,7 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-bold text-lg mb-6">Contact Us</h4>
             <ul className="space-y-4 text-gray-400">
-              <li>Aurangabad, Maharashtra, India</li>
+              <li>F10, Hudco Rd, 12, Chhatrapati Sambhaji Nagar Rd, Navjivan Colony, Chhatrapati Sambhajinagar, Maharashtra 431001</li>
               <li>+91 8552997635</li>
               <li>rizwanrhan124@gmail.com</li>
             </ul>

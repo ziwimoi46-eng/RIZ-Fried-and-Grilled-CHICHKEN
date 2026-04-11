@@ -72,7 +72,7 @@ export default function ContactOrder() {
                 </div>
                 <div>
                   <h4 className="font-bold text-lg">Location</h4>
-                  <p className="text-muted-foreground">Riz Fried and Grilled Chicken<br/>Aurangabad, Maharashtra, India</p>
+                  <p className="text-muted-foreground">Riz Fried and Grilled Chicken<br/>F10, Hudco Rd, 12, Chhatrapati Sambhaji Nagar Rd,<br/>Navjivan Colony, Chhatrapati Sambhajinagar,<br/>Maharashtra 431001</p>
                 </div>
               </div>
               
