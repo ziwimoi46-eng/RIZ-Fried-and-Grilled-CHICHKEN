@@ -16,45 +16,66 @@ type MenuItem = {
 };
 
 const menuData: MenuItem[] = [
+  // KULCHA & WRAPS
+  { id: "k1", name: "Chicken Kulcha", price: 210, category: "Kulcha & Wraps", badge: "Best Seller", image: "kulcha.jpg", desc: "Crispy stuffed kulcha with 1 sweet chilly & 1 garlic dip." },
+  { id: "k2", name: "Chicken Peri Peri Kulcha", price: 210, category: "Kulcha & Wraps", badge: "Best Seller", image: "kulcha.jpg", desc: "Fiery peri peri stuffed kulcha with 1 sweet chilly & 1 garlic dip." },
+  { id: "k3", name: "Chicken Makhani Kulcha", price: 210, category: "Kulcha & Wraps", badge: "Best Seller", image: "kulcha.jpg", desc: "Rich makhani chicken kulcha with 1 sweet chilly & 1 garlic dip." },
+  { id: "k4", name: "Arabian Wrap", price: 150, category: "Kulcha & Wraps", image: "kulcha.jpg", desc: "Tender chicken in an Arabian-style wrap." },
+  { id: "k5", name: "Desi Wrap", price: 150, category: "Kulcha & Wraps", image: "kulcha.jpg", desc: "Spiced chicken in a desi-style wrap." },
+
   // BURGERS
-  { id: "b1", name: "Chicken Zip Zap Burger", price: 245, category: "Burgers", badge: "Best Seller", image: "menu-burgers.jpg", desc: "Crispy chicken patty with our secret zip zap sauce." },
-  { id: "b2", name: "Chicken Tandoori Zip Zap Burger", price: 245, category: "Burgers", image: "menu-burgers.jpg", desc: "Infused with rich tandoori spices." },
-  { id: "b3", name: "Chicken Habanero Zip Zap Burger", price: 239, category: "Burgers", image: "menu-burgers.jpg", desc: "Extra spicy habanero kick." },
-  { id: "b4", name: "Chicken Smokey Zip Zap Burger", price: 245, category: "Burgers", image: "menu-burgers.jpg", desc: "Smokey BBQ flavors inside out." },
-  { id: "b5", name: "Veg Burger", price: 169, category: "Burgers", image: "menu-burgers.jpg", desc: "Crunchy veg patty with fresh lettuce." },
-  { id: "b6", name: "Veg Tandoori Burger", price: 169, category: "Burgers", image: "menu-burgers.jpg", desc: "Veg patty with a tandoori twist." },
-  
-  // STARTERS / WINGS
-  { id: "w1", name: "Chicken Wings [6 Pieces]", price: 229, category: "Starters / Wings", badge: "Best Seller", image: "hero-wings.jpg", desc: "Classic crispy fried wings." },
-  { id: "w2", name: "Peri Peri Chicken Wings [6 Pieces]", price: 229, category: "Starters / Wings", image: "hero-wings.jpg", desc: "Tossed in fiery peri peri seasoning." },
-  
+  { id: "b1", name: "Chicken Grilled Burger", price: 170, category: "Burgers", image: "menu-burgers.jpg", desc: "Choice of Zingy, Harissa or Peri Peri sauce. Add double patty @₹50 or fried egg @₹20." },
+  { id: "b2", name: "Chicken Zip Zap Burger", price: 210, category: "Burgers", badge: "Best Seller", image: "menu-burgers.jpg", desc: "Crispy chicken patty with our signature zip zap sauce." },
+  { id: "b3", name: "Chicken Tandoori Burger", price: 210, category: "Burgers", image: "menu-burgers.jpg", desc: "Juicy chicken with rich tandoori spices & garlic dip." },
+  { id: "b4", name: "Chicken Smokey Burger", price: 210, category: "Burgers", image: "menu-burgers.jpg", desc: "Smokey flavour chicken patty served with garlic dip." },
+
+  // CHICKEN WINGS
+  { id: "w1", name: "Chicken Hot Wings [6 Pieces]", price: 210, category: "Chicken Wings", badge: "Best Seller", image: "hero-wings.jpg", desc: "Classic crispy hot wings with 1 sweet chilli & 1 garlic dip." },
+  { id: "w2", name: "Peri Peri Wings [6 Pieces]", price: 220, category: "Chicken Wings", image: "hero-wings.jpg", desc: "Fiery peri peri wings with 1 sweet chilli & 1 garlic dip." },
+
   // SNACKS
-  { id: "s1", name: "Chicken Popcorn", price: 265, category: "Snacks", badge: "Best Seller", image: "menu-popcorn-fries.jpg", desc: "Bite-sized crispy chicken joy." },
-  { id: "s2", name: "Peri Peri Chicken Popcorn", price: 265, category: "Snacks", image: "menu-popcorn-fries.jpg", desc: "Spicy bite-sized chicken." },
-  { id: "s3", name: "Chicken Kulcha", price: 219, category: "Snacks", image: "kulcha.jpg", desc: "Stuffed chicken bread delight." },
-  { id: "s4", name: "Chicken Makhani Kulcha", price: 219, category: "Snacks", image: "kulcha.jpg", desc: "Rich makhani gravy inside." },
-  { id: "s5", name: "Chicken Habanero Kulcha", price: 219, category: "Snacks", image: "kulcha.jpg", desc: "Spicy stuffed kulcha." },
-  
+  { id: "s1", name: "Chicken Popcorn", price: 230, category: "Snacks", badge: "Best Seller", image: "menu-popcorn-fries.jpg", desc: "Bite-sized crispy chicken with 1 sweet chilli & 1 garlic dip." },
+  { id: "s2", name: "Peri Peri Popcorn", price: 240, category: "Snacks", image: "menu-popcorn-fries.jpg", desc: "Spicy peri peri popcorn with 1 sweet chilli & 1 garlic dip." },
+  { id: "s3", name: "Chicken Boneless Strips [4 Pieces]", price: 230, category: "Snacks", image: "menu-popcorn-fries.jpg", desc: "Tender boneless chicken strips." },
+  { id: "s4", name: "Chicken Boneless Strips [6 Pieces]", price: 300, category: "Snacks", image: "menu-popcorn-fries.jpg", desc: "Tender boneless chicken strips." },
+  { id: "s5", name: "Chicken Boneless Strips [8 Pieces]", price: 370, category: "Snacks", image: "menu-popcorn-fries.jpg", desc: "Tender boneless chicken strips." },
+
   // FRENCH FRIES
-  { id: "f1", name: "Salted Fries", price: 90, category: "French Fries", image: "menu-popcorn-fries.jpg" },
-  { id: "f2", name: "Peri Peri Fries", price: 90, category: "French Fries", image: "menu-popcorn-fries.jpg" },
-  
+  { id: "f1", name: "Fries", price: 80, category: "French Fries", image: "menu-popcorn-fries.jpg", desc: "Classic salted crispy fries." },
+  { id: "f2", name: "Peri Peri Fries", price: 90, category: "French Fries", image: "menu-popcorn-fries.jpg", desc: "Crispy fries tossed in peri peri seasoning." },
+
+  // CHICKEN BOXES
+  { id: "hc1", name: "2 pc Hot & Crispy", price: 225, category: "Chicken Boxes", image: "menu-crispy.jpg", desc: "1 thigh 1 leg — with 1 sweet chilli & 1 garlic dip." },
+  { id: "hc2", name: "4 pc Hot & Crispy", price: 390, category: "Chicken Boxes", image: "menu-crispy.jpg", desc: "2 thigh 2 leg — with 2 sweet chilli & 2 garlic dip." },
+  { id: "hc3", name: "6 pc Hot & Crispy", price: 550, category: "Chicken Boxes", image: "menu-crispy.jpg", desc: "3 thigh 3 leg — with 3 sweet chilli & 3 garlic dip." },
+  { id: "hc4", name: "8 pc Hot & Crispy", price: 650, category: "Chicken Boxes", image: "menu-crispy.jpg", desc: "4 thigh 4 leg — with 3 sweet chilli & 3 garlic dip." },
+  { id: "cg1", name: "2 pc Chilli Garlic Chicken", price: 235, category: "Chicken Boxes", image: "menu-crispy.jpg", desc: "1 thigh 1 leg — with 1 sweet chilli & 1 garlic dip." },
+  { id: "cg2", name: "4 pc Chilli Garlic Chicken", price: 400, category: "Chicken Boxes", image: "menu-crispy.jpg", desc: "2 thigh 2 leg — with 2 sweet chilli & 2 garlic dip." },
+  { id: "cg3", name: "6 pc Chilli Garlic Chicken", price: 560, category: "Chicken Boxes", image: "menu-crispy.jpg", desc: "3 thigh 3 leg — with 3 sweet chilli & 3 garlic dip." },
+  { id: "cg4", name: "8 pc Chilli Garlic Chicken", price: 660, category: "Chicken Boxes", image: "menu-crispy.jpg", desc: "4 thigh 4 leg — with 3 sweet chilli & 3 garlic dip." },
+  { id: "g1", name: "2 pc Grilled Chicken", price: 240, category: "Chicken Boxes", image: "menu-grilled.jpg", desc: "1 thigh 1 leg — with 1 sweet chilli & 1 garlic dip." },
+  { id: "g2", name: "4 pc Grilled Chicken", price: 410, category: "Chicken Boxes", image: "menu-grilled.jpg", desc: "2 thigh 2 leg — with 2 sweet chilli & 2 garlic dip." },
+  { id: "g3", name: "6 pc Grilled Chicken", price: 580, category: "Chicken Boxes", image: "menu-grilled.jpg", desc: "3 thigh 3 leg — with 3 sweet chilli & 3 garlic dip." },
+  { id: "g4", name: "8 pc Grilled Chicken", price: 670, category: "Chicken Boxes", image: "menu-grilled.jpg", desc: "4 thigh 4 leg — with 3 sweet chilli & 3 garlic dip." },
+
   // COMBOS
-  { id: "c1", name: "Chicken Zip Zap Burger Combo", price: 299, category: "Combos", image: "combo-tray.jpg", desc: "Burger + Fries + Drink" },
-  { id: "c2", name: "Chicken Tandoori Zip Zap Combo", price: 299, category: "Combos", image: "combo-tray.jpg", desc: "Tandoori Burger + Fries + Drink" },
-  { id: "c3", name: "Chicken Habanero Zip Zap Combo", price: 299, category: "Combos", image: "combo-tray.jpg", desc: "Spicy Burger + Fries + Drink" },
-  
-  // HOT & CRISPY
-  { id: "hc1", name: "2 pc Hot & Crispy", price: 170, category: "Hot & Crispy", image: "menu-crispy.jpg", desc: "With 2 dippings." },
-  { id: "hc2", name: "4 pc Hot & Crispy", price: 320, category: "Hot & Crispy", image: "menu-crispy.jpg", desc: "With 4 dippings." },
-  { id: "hc3", name: "6 pc Hot & Crispy", price: 450, category: "Hot & Crispy", image: "menu-crispy.jpg", desc: "With 6 dippings." },
-  { id: "hc4", name: "8 pc Hot & Crispy", price: 570, category: "Hot & Crispy", image: "menu-crispy.jpg", desc: "With 6 dippings." },
-  
-  // GRILLED SPICY
-  { id: "g1", name: "2 pc Grilled Spicy Chicken", price: 170, category: "Grilled Spicy", image: "menu-grilled.jpg" },
-  { id: "g2", name: "4 pc Grilled Spicy Chicken", price: 320, category: "Grilled Spicy", image: "menu-grilled.jpg" },
-  { id: "g3", name: "6 pc Grilled Spicy Chicken", price: 450, category: "Grilled Spicy", image: "menu-grilled.jpg" },
-  { id: "g4", name: "8 pc Grilled Spicy Chicken", price: 570, category: "Grilled Spicy", image: "menu-grilled.jpg" },
+  { id: "c1", name: "Non Veg Burger Combo", price: 290, category: "Combos", image: "combo-tray.jpg", desc: "Chicken Burger + Fries + 200ml Cold Drink." },
+  { id: "c2", name: "Wings Combo", price: 270, category: "Combos", image: "combo-tray.jpg", desc: "Wings + Fries + 200ml Cold Drink." },
+  { id: "c3", name: "Popcorn Combo", price: 300, category: "Combos", badge: "Best Seller", image: "combo-tray.jpg", desc: "Chicken Popcorn + Fries + 200ml Cold Drink." },
+  { id: "c4", name: "Veg Burger Combo", price: 250, category: "Combos", image: "combo-tray.jpg", desc: "Veg Burger + Fries + 200ml Cold Drink." },
+
+  // VEG MENU
+  { id: "v1", name: "Veg Burger", price: 140, category: "Veg Menu", image: "menu-burgers.jpg", desc: "Crispy veg patty with fresh lettuce & garlic dip." },
+  { id: "v2", name: "Veg Tandoori Burger", price: 140, category: "Veg Menu", image: "menu-burgers.jpg", desc: "Veg patty with tandoori spice & garlic dip." },
+  { id: "v3", name: "Veg Kulcha", price: 130, category: "Veg Menu", badge: "Best Seller", image: "kulcha.jpg", desc: "Stuffed veg kulcha with garlic dip & sweet chilly." },
+  { id: "v4", name: "Veg Tandoori Kulcha", price: 130, category: "Veg Menu", badge: "Best Seller", image: "kulcha.jpg", desc: "Veg kulcha with tandoori spices, garlic dip & sweet chilly." },
+  { id: "v5", name: "Veg Peri Peri Kulcha", price: 130, category: "Veg Menu", badge: "Best Seller", image: "kulcha.jpg", desc: "Veg kulcha with peri peri twist, garlic dip & sweet chilly." },
+
+  // BEVERAGES
+  { id: "bev1", name: "Popping Boba", price: 140, category: "Beverages", image: "hero-bucket.jpg", desc: "Choose from Cranberry, Blueberry, Lichi, Kiwi, Mango or Strawberry." },
+  { id: "bev2", name: "Virgin Mojito", price: 100, category: "Beverages", image: "hero-bucket.jpg", desc: "Refreshing classic virgin mojito." },
+  { id: "bev3", name: "Watermelon Mojito", price: 120, category: "Beverages", image: "hero-bucket.jpg", desc: "Cool watermelon-flavoured mojito." },
+  { id: "bev4", name: "Green Apple Mojito", price: 120, category: "Beverages", image: "hero-bucket.jpg", desc: "Tangy green apple mojito." },
 ];
 
 const categories = ["All", ...Array.from(new Set(menuData.map(item => item.category)))];
