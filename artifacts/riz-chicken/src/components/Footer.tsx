@@ -44,7 +44,7 @@ export default function Footer() {
             <h4 className="text-white font-bold text-lg mb-6">Contact Us</h4>
             <ul className="space-y-4 text-gray-400">
               <li>F10, Hudco Rd, 12, Chhatrapati Sambhaji Nagar Rd, Navjivan Colony, Chhatrapati Sambhajinagar, Maharashtra 431001</li>
-              <li>+91 8552997635</li>
+              <li>+91 8552997625</li>
               <li>rizwanrhan124@gmail.com</li>
             </ul>
           </div>

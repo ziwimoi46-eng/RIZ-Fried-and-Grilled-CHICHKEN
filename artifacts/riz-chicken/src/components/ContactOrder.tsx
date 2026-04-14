@@ -37,7 +37,7 @@ export default function ContactOrder() {
 
   const onSubmit = (data: OrderFormValues) => {
     const message = `Hi Riz Chicken! I want to order:%0A%0AName: ${data.name}%0APhone: ${data.phone}%0AOrder details:%0A${encodeURIComponent(data.details)}`;
-    const waUrl = `https://wa.me/918552997635?text=${message}`;
+    const waUrl = `https://wa.me/918552997625?text=${message}`;
     
     // Open WhatsApp
     window.open(waUrl, "_blank");
@@ -82,7 +82,7 @@ export default function ContactOrder() {
                 </div>
                 <div>
                   <h4 className="font-bold text-lg">Call Us</h4>
-                  <p className="text-muted-foreground">+91 8552997635</p>
+                  <p className="text-muted-foreground">+91 8552997625</p>
                 </div>
               </div>
 
@@ -98,10 +98,10 @@ export default function ContactOrder() {
             </div>
 
             <div className="flex gap-4 mb-10">
-              <Button onClick={() => window.location.href = "tel:8552997635"} className="rounded-xl flex-1 bg-secondary text-white hover:bg-secondary/90">
+              <Button onClick={() => window.location.href = "tel:8552997625"} className="rounded-xl flex-1 bg-secondary text-white hover:bg-secondary/90">
                 <Phone className="w-4 h-4 mr-2" /> Call Now
               </Button>
-              <Button onClick={() => window.open("https://wa.me/918552997635", "_blank")} className="rounded-xl flex-1 bg-[#25D366] text-white hover:bg-[#25D366]/90 border-none shadow-lg shadow-[#25D366]/30">
+              <Button onClick={() => window.open("https://wa.me/918552997625", "_blank")} className="rounded-xl flex-1 bg-[#25D366] text-white hover:bg-[#25D366]/90 border-none shadow-lg shadow-[#25D366]/30">
                 <Send className="w-4 h-4 mr-2" /> WhatsApp Now
               </Button>
             </div>
