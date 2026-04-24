@@ -35,11 +35,11 @@ outputType = "webview"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npx --yes serve -l 3000 -s /home/runner/workspace"
-waitForPort = 3000
+args = "npx --yes serve -l 5000 -s /home/runner/workspace"
+waitForPort = 5000
 
 [agent]
-stack = "PNPM_WORKSPACE"
+stack = "BEST_EFFORT_FALLBACK"
 expertMode = true
 
 [postMerge]
