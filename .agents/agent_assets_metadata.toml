@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "j_kuByxL0N2tZbM-VGrD5"
+uri = "file://mojito.jpg"
+type = "image"
+title = "mojito.jpg used for beverage cards"
