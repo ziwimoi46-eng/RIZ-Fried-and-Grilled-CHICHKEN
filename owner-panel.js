@@ -3,24 +3,18 @@
 
   var OWNER_EMAIL    = 'rizwanrhan124@gmail.com';
   var OWNER_PASSWORD = 'Password123';
-  var OOS_KEY        = 'riz_oos_items';
   var LOGIN_KEY      = 'riz_owner_logged_in';
+  var POLL_INTERVAL  = 10000; /* re-fetch stock every 10 s for cross-device sync */
 
-  var isOwner     = localStorage.getItem(LOGIN_KEY) === 'true';
-  var oosItems    = new Set(JSON.parse(localStorage.getItem(OOS_KEY) || '[]'));
-
-  function saveOOS() {
-    localStorage.setItem(OOS_KEY, JSON.stringify(Array.from(oosItems)));
-  }
+  var isOwner  = localStorage.getItem(LOGIN_KEY) === 'true';
+  var stockMap = {}; /* { "Item Name": true/false } */
 
   /* ─────────────────────────────── Styles ─── */
   var style = document.createElement('style');
   style.textContent = [
-    /* owner login button */
     '#riz-owner-btn{position:fixed;top:16px;right:16px;z-index:99999;background:#b91c1c;color:#fff;border:none;padding:7px 16px;border-radius:999px;cursor:pointer;font-size:12px;font-weight:700;letter-spacing:.4px;box-shadow:0 2px 10px rgba(0,0,0,.35);font-family:inherit;}',
     '#riz-owner-btn:hover{background:#991b1b;}',
 
-    /* login modal */
     '#riz-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:999999;align-items:center;justify-content:center;}',
     '#riz-overlay.open{display:flex;}',
     '#riz-modal{background:#111827;color:#f9fafb;padding:36px 30px 30px;border-radius:18px;width:360px;max-width:92vw;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.5);}',
@@ -32,16 +26,12 @@
     '#riz-modal .riz-close{position:absolute;top:14px;right:16px;background:none;border:none;color:#9ca3af;font-size:22px;cursor:pointer;line-height:1;}',
     '#riz-error{color:#f87171;font-size:13px;margin-bottom:12px;display:none;font-family:inherit;}',
 
-    /* card out-of-stock visual */
     '.riz-card-oos{opacity:.45;pointer-events:none;}',
     '.riz-card-oos .riz-owner-wrap{pointer-events:auto;}',
     '.riz-oos-badge{display:inline-block;background:#dc2626;color:#fff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:5px;letter-spacing:.5px;margin-bottom:6px;font-family:inherit;text-transform:uppercase;}',
 
-    /* owner controls wrap */
     '.riz-owner-wrap{padding-top:8px;border-top:1px solid rgba(0,0,0,.08);margin-top:8px;}',
-
-    /* toggle buttons */
-    '.riz-toggle-btn{width:100%;padding:6px 0;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.3px;transition:background .15s;}',
+    '.riz-toggle-btn{width:100%;padding:6px 0;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.3px;}',
     '.riz-toggle-btn.riz-mark-oos{background:#dc2626;color:#fff;}',
     '.riz-toggle-btn.riz-mark-oos:hover{background:#b91c1c;}',
     '.riz-toggle-btn.riz-mark-in{background:#16a34a;color:#fff;}',
@@ -108,23 +98,36 @@
     isOwner = false;
     localStorage.removeItem(LOGIN_KEY);
     loginBtn.textContent = 'Owner Login';
-    /* remove owner controls but keep OOS visual state */
     document.querySelectorAll('.riz-owner-wrap').forEach(function (el) { el.remove(); });
   }
 
-  /* ─────────────────────────── Card Detection ─── */
-  function getMenuCards() {
-    return Array.from(document.querySelectorAll('#menu [class*="bg-card"][class*="rounded-2xl"]'));
+  /* ─────────────────── Stock API helpers ─── */
+  function fetchStock(callback) {
+    fetch('/api/stock')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        stockMap = data;
+        if (callback) callback();
+      })
+      .catch(function (err) {
+        console.warn('[RizPanel] Could not fetch stock:', err);
+      });
   }
 
-  function getCardName(card) {
-    var h4 = card.querySelector('h4');
-    return h4 ? h4.textContent.trim() : null;
+  function postStock(name, available) {
+    fetch('/api/stock', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, available: available })
+    })
+      .then(function (r) { return r.json(); })
+      .catch(function (err) {
+        console.warn('[RizPanel] Could not update stock:', err);
+      });
   }
 
-  /* ─────────────────────── Apply OOS Visual ─── */
+  /* ─────────────────────── Apply OOS visual ─── */
   function applyOOSVisual(card, isOOS) {
-    /* badge */
     var existing = card.querySelector('.riz-oos-badge');
     if (isOOS) {
       if (!existing) {
@@ -141,17 +144,29 @@
     }
   }
 
-  /* ─────────────── Add / Update Owner Controls ─── */
+  /* ─────────────── Card detection helpers ─── */
+  function getMenuCards() {
+    return Array.from(document.querySelectorAll('#menu [class*="bg-card"][class*="rounded-2xl"]'));
+  }
+
+  function getCardName(card) {
+    var h4 = card.querySelector('h4');
+    return h4 ? h4.textContent.trim() : null;
+  }
+
+  /* ─────────────── Process a single card ─── */
   function processCard(card) {
     var name = getCardName(card);
     if (!name) return;
 
-    var isOOS = oosItems.has(name);
+    /* default to true (in stock) if not in stockMap yet */
+    var available = Object.prototype.hasOwnProperty.call(stockMap, name)
+      ? stockMap[name]
+      : true;
+    var isOOS = !available;
 
-    /* always apply visual for all users */
     applyOOSVisual(card, isOOS);
 
-    /* owner controls */
     if (!isOwner) return;
 
     var wrap = card.querySelector('.riz-owner-wrap');
@@ -161,24 +176,18 @@
       card.appendChild(wrap);
     }
 
-    /* clear and rebuild the toggle button */
     wrap.innerHTML = '';
     var btn = document.createElement('button');
     btn.className = 'riz-toggle-btn ' + (isOOS ? 'riz-mark-in' : 'riz-mark-oos');
     btn.textContent = isOOS ? '✓ Mark In Stock' : 'Mark Out of Stock';
 
     btn.addEventListener('click', function () {
-      var currentOOS = oosItems.has(name);
-      if (currentOOS) {
-        oosItems.delete(name);
-      } else {
-        oosItems.add(name);
-      }
-      saveOOS();
-      /* re-apply immediately */
-      applyOOSVisual(card, !currentOOS);
-      btn.className  = 'riz-toggle-btn ' + (!currentOOS ? 'riz-mark-in' : 'riz-mark-oos');
-      btn.textContent = !currentOOS ? '✓ Mark In Stock' : 'Mark Out of Stock';
+      var nowOOS = !stockMap[name]; /* toggle */
+      stockMap[name] = !nowOOS;      /* update local map immediately */
+      postStock(name, !nowOOS);      /* persist to server */
+      applyOOSVisual(card, nowOOS);
+      btn.className  = 'riz-toggle-btn ' + (nowOOS ? 'riz-mark-in' : 'riz-mark-oos');
+      btn.textContent = nowOOS ? '✓ Mark In Stock' : 'Mark Out of Stock';
     });
 
     wrap.appendChild(btn);
@@ -188,7 +197,7 @@
     getMenuCards().forEach(function (card) { processCard(card); });
   }
 
-  /* ─────────────────── MutationObserver ─── */
+  /* ──────────────── MutationObserver ─── */
   var processing = false;
   var observer = new MutationObserver(function () {
     if (processing) return;
@@ -199,11 +208,23 @@
     });
   });
 
-  /* ────────────────────────────────── Init ─── */
+  /* ────────── Polling for cross-device sync ─── */
+  function startPolling() {
+    setInterval(function () {
+      fetchStock(processAllCards);
+    }, POLL_INTERVAL);
+  }
+
+  /* ────────────────────────────── Init ─── */
   function waitForMenu() {
     var menuSection = document.querySelector('#menu');
     if (!menuSection) { setTimeout(waitForMenu, 300); return; }
-    processAllCards();
+
+    fetchStock(function () {
+      processAllCards();
+      startPolling();
+    });
+
     observer.observe(document.querySelector('#root') || document.body, {
       childList: true,
       subtree: true
