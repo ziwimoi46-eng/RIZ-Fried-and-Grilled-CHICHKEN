@@ -4,10 +4,13 @@
   var OWNER_EMAIL    = 'rizwanrhan124@gmail.com';
   var OWNER_PASSWORD = 'Password123';
   var LOGIN_KEY      = 'riz_owner_logged_in';
-  var POLL_INTERVAL  = 10000; /* re-fetch stock every 10 s for cross-device sync */
+  var POLL_INTERVAL  = 30000; /* re-fetch every 30 s for cross-device sync */
+
+  /* ── ?admin=1 in URL auto-opens login ── */
+  var adminParam = new URLSearchParams(window.location.search).get('admin') === '1';
 
   var isOwner  = localStorage.getItem(LOGIN_KEY) === 'true';
-  var stockMap = {}; /* { "Item Name": true/false } */
+  var stockMap = {};
 
   /* ─────────────────────────────── Styles ─── */
   var style = document.createElement('style');
@@ -39,7 +42,7 @@
   ].join('');
   document.head.appendChild(style);
 
-  /* ─────────────────────────── Login Button ─── */
+  /* ─────────────────── Login Button (always visible) ─── */
   var loginBtn = document.createElement('button');
   loginBtn.id = 'riz-owner-btn';
   loginBtn.textContent = isOwner ? '✓ Owner' : 'Owner Login';
@@ -54,8 +57,8 @@
   overlay.innerHTML =
     '<div id="riz-modal">' +
       '<button class="riz-close" aria-label="Close">&#x2715;</button>' +
-      '<h2>&#x1F512; Owner Login</h2>' +
-      '<div id="riz-error">Invalid email or password.</div>' +
+      '<h2>&#x1F512; Admin Login</h2>' +
+      '<div id="riz-error">Access Denied. Invalid email or password.</div>' +
       '<input type="email" id="riz-email" placeholder="Email" autocomplete="username" />' +
       '<input type="password" id="riz-pass" placeholder="Password" autocomplete="current-password" />' +
       '<button class="riz-submit">Login</button>' +
@@ -111,6 +114,7 @@
       })
       .catch(function (err) {
         console.warn('[RizPanel] Could not fetch stock:', err);
+        if (callback) callback();
       });
   }
 
@@ -119,11 +123,9 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: name, available: available })
-    })
-      .then(function (r) { return r.json(); })
-      .catch(function (err) {
-        console.warn('[RizPanel] Could not update stock:', err);
-      });
+    }).catch(function (err) {
+      console.warn('[RizPanel] Could not update stock:', err);
+    });
   }
 
   /* ─────────────────────── Apply OOS visual ─── */
@@ -144,25 +146,22 @@
     }
   }
 
-  /* ─────────────── Card detection helpers ─── */
+  /* ─────────────── Card detection ─── */
   function getMenuCards() {
     return Array.from(document.querySelectorAll('#menu [class*="bg-card"][class*="rounded-2xl"]'));
   }
-
   function getCardName(card) {
     var h4 = card.querySelector('h4');
     return h4 ? h4.textContent.trim() : null;
   }
 
-  /* ─────────────── Process a single card ─── */
+  /* ─────────────── Process a card ─── */
   function processCard(card) {
     var name = getCardName(card);
     if (!name) return;
 
-    /* default to true (in stock) if not in stockMap yet */
     var available = Object.prototype.hasOwnProperty.call(stockMap, name)
-      ? stockMap[name]
-      : true;
+      ? stockMap[name] : true;
     var isOOS = !available;
 
     applyOOSVisual(card, isOOS);
@@ -175,21 +174,19 @@
       wrap.className = 'riz-owner-wrap';
       card.appendChild(wrap);
     }
-
     wrap.innerHTML = '';
+
     var btn = document.createElement('button');
     btn.className = 'riz-toggle-btn ' + (isOOS ? 'riz-mark-in' : 'riz-mark-oos');
     btn.textContent = isOOS ? '✓ Mark In Stock' : 'Mark Out of Stock';
-
     btn.addEventListener('click', function () {
-      var nowOOS = !stockMap[name]; /* toggle */
-      stockMap[name] = !nowOOS;      /* update local map immediately */
-      postStock(name, !nowOOS);      /* persist to server */
+      var nowOOS = !stockMap[name];
+      stockMap[name] = !nowOOS;
+      postStock(name, !nowOOS);
       applyOOSVisual(card, nowOOS);
       btn.className  = 'riz-toggle-btn ' + (nowOOS ? 'riz-mark-in' : 'riz-mark-oos');
       btn.textContent = nowOOS ? '✓ Mark In Stock' : 'Mark Out of Stock';
     });
-
     wrap.appendChild(btn);
   }
 
@@ -202,20 +199,15 @@
   var observer = new MutationObserver(function () {
     if (processing) return;
     processing = true;
-    requestAnimationFrame(function () {
-      processAllCards();
-      processing = false;
-    });
+    requestAnimationFrame(function () { processAllCards(); processing = false; });
   });
 
-  /* ────────── Polling for cross-device sync ─── */
+  /* ────────── Cross-device polling ─── */
   function startPolling() {
-    setInterval(function () {
-      fetchStock(processAllCards);
-    }, POLL_INTERVAL);
+    setInterval(function () { fetchStock(processAllCards); }, POLL_INTERVAL);
   }
 
-  /* ────────────────────────────── Init ─── */
+  /* ────────────────────────── Init ─── */
   function waitForMenu() {
     var menuSection = document.querySelector('#menu');
     if (!menuSection) { setTimeout(waitForMenu, 300); return; }
@@ -223,11 +215,12 @@
     fetchStock(function () {
       processAllCards();
       startPolling();
+      /* auto-open login if ?admin=1 and not already logged in */
+      if (adminParam && !isOwner) openModal();
     });
 
     observer.observe(document.querySelector('#root') || document.body, {
-      childList: true,
-      subtree: true
+      childList: true, subtree: true
     });
   }
 
