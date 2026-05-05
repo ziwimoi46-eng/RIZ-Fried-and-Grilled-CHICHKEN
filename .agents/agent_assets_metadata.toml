@@ -1,5 +1,34 @@
 uploads = []
-generated = []
+
+[[generated]]
+id = "Gz4gn7FWQ-iJtxPGaOKft"
+uri = "file://peri-peri-fries.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "-JEv1YN7Wp_WrzyP-rMah"
+uri = "file://crispy-box-new.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "RvE3eOVUWTevsyIvShWhu"
+uri = "file://chilli-garlic-box-new.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "013197z8DrVJIjF_XFk83"
+uri = "file://grilled-box-new.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "6ig7s9rOQx3R2AwWY8BOX"
+uri = "file://kulcha-chicken-new.png"
+type = "image"
+title = "generated_image"
 
 [[outputs]]
 id = "j_kuByxL0N2tZbM-VGrD5"
